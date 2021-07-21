@@ -1,23 +1,31 @@
 //Dovid Korn
 
-import java.util.HashMap;
+
+import java.awt.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Solution {
-    public int[] twoSum(int[] nums, int target) {
-        HashMap<Integer, Integer> map = new HashMap<>(); //key is the number, value is index.
-        int other;
-        /*
-         * If other is in the map, we now have both numbers, and return the indexes. If not, add nums[i] and its index
-         * to map and maybe we'll get a hit in a future iteration
-         */
-        for (int i = 0; i < nums.length; i++) {
-            other = target - nums[i];
-            if (map.containsKey(other)){
-                return new int[]{map.get(other), i};
-            } else {
-                map.put(nums[i], i);
+    public boolean isPathCrossing(String path) {
+        Set<Point> cross = new HashSet<>();
+        int x = 0, y = 0;
+        cross.add(new Point(x,y));
+
+        for (int i = 0; i < path.length(); i++) {
+            char c = path.charAt(i);
+            if (c == 'N'){
+                y++;
+            } else if (c == 'S') {
+                y--;
+            } else if (c == 'E'){
+                x++;
+            } else if (c == 'W'){
+                x--;
+            }
+            if (!cross.add(new Point(x,y))){
+                return true;
             }
         }
-        return new int[]{-1, -1};
+        return false;
     }
 }
